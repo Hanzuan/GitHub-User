@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.navigationdanapi.DetailActivity
 import com.example.navigationdanapi.databinding.ProfileCardBinding
-import com.example.navigationdanapi.response.SearchUserResponse
 import com.example.navigationdanapi.response.UserResponse
 import de.hdodenhof.circleimageview.CircleImageView
 

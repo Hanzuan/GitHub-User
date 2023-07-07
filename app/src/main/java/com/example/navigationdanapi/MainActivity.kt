@@ -7,11 +7,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.navigationdanapi.Adapter.UserAdapter
 import com.example.navigationdanapi.databinding.ActivityMainBinding
-import com.example.navigationdanapi.response.SearchUserResponse
+import com.example.navigationdanapi.remote.ApiConfig
 import com.example.navigationdanapi.response.UserResponse
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        apiService = ApiConfig.getApiService()
+
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         mainViewModel.searchUser.observe(this) { searchUser ->
             setUserData(searchUser)
         }
@@ -62,7 +66,6 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
-
         })
         return true
     }

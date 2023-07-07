@@ -7,8 +7,26 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-class ApiConfig {
-    companion object{
+object ApiConfig {
+    private const val BASE_URL = "https://api.github.com/"
+
+    fun getApiService(): ApiService {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        return retrofit.create(ApiService::class.java)
+    }
+    /*companion object{
         fun getApiService(): ApiService {
             val loggingInterceptor = if (BuildConfig.DEBUG){
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -28,5 +46,5 @@ class ApiConfig {
 
             return retrofit.create(ApiService::class.java)
         }
-    }
+    }*/
 }
